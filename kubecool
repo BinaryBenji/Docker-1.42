@@ -1,0 +1,44 @@
+ # start comme docker machine
+
+ minikube start --vm-driver="hyperv" --hyperv-virtual-switch="banana"
+
+# infos sur la structure 
+
+kubectl cluster-info
+
+
+# run un hello world
+
+kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.4 --port=8080
+
+# expose port
+
+kubectl expose deployment hello-minikube --type=Nodeport
+
+# open dashboard minikube
+
+minikube dashboard
+
+# ssh to master 
+
+minikube ssh
+
+# toutes les app passent par le master
+
+minikube ip pour trouver ip du master
+
+# choper tout ce qui tourne dans un minikube
+kubectl get all
+
+# creer un ingress (allocate a new ip externer pour acceder au service)
+lancer basic_ingress.yml
+
+# choper infos sur ingress
+kubectl get ingress #nom ingress
+
+
+# choper infos complete sur ingress
+ kubectl describe ing #nom ingress
+
+ # get ip:port d'un service 
+ minikube service #nom_du_service --url

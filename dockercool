@@ -1,0 +1,102 @@
+list all containers : docker-machine ls -a
+	 all images		: docker image ls
+	 all containers	: docker container ls --all
+
+desactiver / activer Hyper-v : fonctionalités windows.
+
+
+build prog : docker build -t #name . OU docker build .
+
+lancer l'image : docker run -p #pdest:#psource
+
+run app : docker run -p 4000:80 #name
+
+creer un container a partir d'une image :
+docker create --name #name #id_image
+
+
+remove un container : 
+docker rm #container_id
+
+remove une image :
+docker rmi #image_id
+
+stop un container :
+docker container stop #container_id
+
+lancer un container et se co direct dessus:
+docker run -it #id_de_IMAGE
+
+se connecter a un container :
+docker start 3a09b2588478 (id du container)
+docker attach 3a09b2588478
+
+
+remove tout les containers arretés:
+docker rm $(docker ps -a -q)
+
+
+commit/sauvegarde un container (snapshot sur image)
+docker commit #container_id_a_sauver #nom_de_la_nouvelle(oupas)_image
+
+
+docker-machine create -d hyperv --hyperv-virtual-switch "banana" #nomdelamachine
+
+supprimer toutes les images qui servent a rien : docker image prune -a : dokcer image prune
+
+
+creer un swarm a partir d'une ip(creer un node) : docker swarm init --advertise-addr #ip_manager
+
+(il faut join le swarm avec un token)
+
+
+lister les nodes : docker node ls
+
+
+ docker swarm join --token SWMTKN-1-5os81qck5njxyqwgui6i4bkw9t3io5levfseg87i4h6vqsm8uz-bdzgaro43vv4lscdb0zi61jnx 172.16.30.175:2377
+
+redemarrer docker : restart-service *docker*
+
+
+avertir le manager qu'un worker arrive : 
+docker swarm init --advertise-addr #ip_worker
+
+ docker swarm join --token SWMTKN-1-4jymsyy3bhsm6geyrx2n3hmgpoogro0g96degkmhlpteo9c8kj-2pvl9poji85ejpy2lxz8jgmey 172.16.30.103:2377
+
+
+
+statut des containers exec avec docker-compose :  docker-compose ps
+
+
+creer un service : docker service create --name #nom --replicas #nb image
+
+redirection de port pour service (le nouveau port sera attribué auto) : docker service update --publish-add 80 #nom du service
+
+
+
+ #push une image
+docker login
+docker tag my_image $DOCKER_ID_USER/my_image
+docker push $DOCKER_ID_USER/my_image
+
+# info sur service 
+
+docker service ps #service 
+
+run un single container sur un swarm :
+
+docker -H 172.16.0.5:2375 run --name hello-nginx -d -p 80:80 nginx
+
+check all containers
+
+docker -H 172.16.0.5:2375 ps -a
+
+info sur agents: 
+
+docker info
+
+faire tourner portainer : 
+
+docker run -d -it -p 8080:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
+
+export DOCKER_HOST=172.16.0.5:2375

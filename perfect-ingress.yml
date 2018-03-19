@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-name
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  backend:
+    serviceName: default-http-backend
+    servicePort: 80
+  rules:
+  - host: fqdn.whatuwant
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: echoserver
+          servicePort: 80
+  - host: fqdn.nimporte
+    http:
+      paths:
+      - path: /stilton
+        backend:
+          serviceName: stilton-cheese
+          servicePort: 80
